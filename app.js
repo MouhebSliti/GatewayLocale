@@ -2,37 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const https = require("https");
-const fs = require('fs');
 
 const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-
-let Jsondata;  // Declare Jsondata outside the callback to make it accessible
-
-fs.readFile("./MP1.json", "utf8", (error, data) => {
-  if (error) {
-    console.log(error);
-    return;
-  }
-  Jsondata = JSON.parse(data);
-});
-
-app.get('/processJson', (req, res) => {
-  const result = {
-    id: Jsondata.id,
-    name: Jsondata.name,
-    bundledProductOffering: Jsondata.bundledProductOffering.map(product => {
-      return {
-        id: product.id,
-        name: product.name
-      };
-    })
-  };
-
-  res.json(result);
-});
 
 const axiosInstance = axios.create({
   httpsAgent: new https.Agent({
@@ -40,16 +14,34 @@ const axiosInstance = axios.create({
   }),
 });
 
-app.get("/product/:id", async (req, res) => {
-  const productId = req.params.id;
-
+async function fetchJsonDataFromApi() {
   try {
     const response = await axiosInstance.get(
-      `https://catalog-product-catalog-staging-disco.apps.fr01.paas.tech.orange/productCatalogManagement/v1/productOffering/${productId}`
+      "https://catalog-product-catalog-staging-disco.apps.fr01.paas.tech.orange/productCatalogManagement/v1/productOffering/6c4820dc-89ae-4c7a-adb0-23e9384407b4"
     );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
-    const productInfo = response.data;
-    res.json(productInfo);
+app.get('/processJson', async (req, res) => {
+  try {
+    const jsonData = await fetchJsonDataFromApi();
+
+    const result = {
+      id: jsonData.id,
+      name: jsonData.name,
+      bundledProductOffering: jsonData.bundledProductOffering.map(product => {
+        return {
+          id: product.id,
+          name: product.name
+        };
+      })
+    };
+
+    res.json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
