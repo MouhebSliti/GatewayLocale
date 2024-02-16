@@ -20,7 +20,8 @@ const signin = async (req, res) => {
         ID_ORANGE: user.ID_ORANGE,
         ID_META: user.ID_META,
         email: user.email,
-        username: user.username
+        username: user.username,
+        token: user.token
       };
       console.log(user); // Log the type of the received email
 
