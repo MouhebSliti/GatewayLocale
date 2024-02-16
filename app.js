@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
 // Connect to MongoDB
 mongoose.connect(process.env.mongoURI)
   .then(() => {
