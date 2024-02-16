@@ -1,6 +1,8 @@
+// routes/AuthenticationRoute.js
+
 const express = require('express');
 const router = express.Router();
-const { signin, signup } = require('../controllers/userController'); // Import the signup function
+const { signin, signup } = require('../controllers/userController'); // Import both signin and signup functions
 const Account = require("../models/Account"); // Import the Account model
 
 // Signin route

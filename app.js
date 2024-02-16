@@ -10,7 +10,6 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-require('./models/Account');
 
 // Connect to MongoDB
 mongoose.connect(process.env.mongoURI)
@@ -21,8 +20,7 @@ mongoose.connect(process.env.mongoURI)
     
     // Setup the routes after connecting to MongoDB
     const authenticationRoutes = require('./routes/AuthentificationRoute');
-    app.use('/auth', authenticationRoutes);
-    app.use(authenticationRoutes); // Use the new route for user retrieval
+    app.use('/auth', authenticationRoutes); // Use the authentication routes with base path /auth
 
     // Read JSON data
     let jsonData;
