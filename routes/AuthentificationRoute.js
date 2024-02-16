@@ -7,7 +7,7 @@ const Account = require("../models/Account"); // Import the Account model
 router.post('/signin', signin);
 
 // Signup route
-router.post('/signup', signup); // Use the signup function
+router.post('/signup', signup); 
 
 // Route to fetch users
 router.get('/users', async (req, res) => {

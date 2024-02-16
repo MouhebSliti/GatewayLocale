@@ -3,12 +3,10 @@ const Account = require("../models/Account");
 const signin = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     console.log("Email received:", email); // Log the type of the received email
 
     // Find the user in the database based on the provided email
     const user = await Account.findOne({ email });
-    console.log("User found:", user); // Log the user object retrieved from the database
 
     // Check if user with the provided email exists
     if (!user) {
@@ -24,6 +22,8 @@ const signin = async (req, res) => {
         email: user.email,
         username: user.username
       };
+      console.log(user); // Log the type of the received email
+
 
       return res.status(200).json(userInfoResponse);
     } else {
@@ -34,7 +34,6 @@ const signin = async (req, res) => {
     return res.status(500).json({ error: "Server Error" });
   }
 };
-
 const signup = async (req, res) => {
   try {
     const { ID_ORANGE, ID_META, email, password, username, token } = req.body;

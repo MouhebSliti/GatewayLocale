@@ -34,7 +34,7 @@ const AccountSchema = new mongoose.Schema({
 });
 
 // Hashing the password before saving it to the database
-
+/*
 AccountSchema.pre('save', async function(next) {
   try {
     if (!this.isModified('password')) {
@@ -47,6 +47,6 @@ AccountSchema.pre('save', async function(next) {
     next(error);
   }
 }); 
-
+*/
 
 module.exports = mongoose.model('Account', AccountSchema);
