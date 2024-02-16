@@ -5,10 +5,10 @@ const signin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log("Email received:", typeof email); // Log the type of the received email
+    console.log("Email received :", email); // Log the type of the received email
 
     const user = await Account.findOne({ email });
-    console.log("User found:", user); // Log the user object retrieved from the database
+    //console.log("User found:", user.username); // Log the user object retrieved from the database
 
     // Check if user with the provided email exists
     if (!user) {
