@@ -1,8 +1,7 @@
 require('dotenv').config();
-
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
+const { readFile } = require('fs');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -11,7 +10,6 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-
 // Connect to MongoDB
 mongoose.connect(process.env.mongoURI)
   .then(() => {
@@ -26,7 +24,7 @@ mongoose.connect(process.env.mongoURI)
 
     // Read JSON data
     let jsonData;
-    fs.readFile('./MP1.json', 'utf8', (error, data) => {
+    readFile('./MP1.json', 'utf8', (error, data) => {
       if (error) {
         console.error('Error reading JSON file:', error);
         jsonData = null;
