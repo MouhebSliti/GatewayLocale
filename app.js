@@ -11,6 +11,19 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+// Setting up DB
+const mongoose = require('mongoose');
+mongoose.connect(process.env.mongoURI)
+  .then(() => {
+    console.log('Connected to MongoDB');
+    // Setup database models after connecting to MongoDB
+    require('./models/Account');
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
+
 // Setup the routes
 const authenticationRoutes = require('./routes/AuthentificationRoute');
 app.use('/auth', authenticationRoutes);
@@ -46,14 +59,4 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
-// Setting up DB
-const mongoose = require('mongoose');
-mongoose.connect(process.env.mongoURI)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    // Setup database models after connecting to MongoDB
-    require('./models/Account');
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-  });
+
