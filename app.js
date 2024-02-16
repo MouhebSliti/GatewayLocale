@@ -28,6 +28,9 @@ mongoose.connect(process.env.mongoURI)
 const authenticationRoutes = require('./routes/AuthentificationRoute');
 app.use('/auth', authenticationRoutes);
 
+app.use(authenticationRoutes); // Use the new route for user retrieval
+
+
 // Read JSON data
 let jsonData;
 fs.readFile('./MP1.json', 'utf8', (error, data) => {
@@ -53,6 +56,8 @@ app.get('/processJson', (req, res) => {
   };
   res.json(result);
 });
+
+
 
 // Start the server
 app.listen(port, () => {
