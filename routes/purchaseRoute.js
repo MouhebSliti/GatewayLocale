@@ -34,11 +34,14 @@ router.post('/buy', async (req, res) => {
         };
 
         // Make POST request to external API
-        const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/processFlow', payload);
-
+        const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/processFlow', {
+            ID_ORANGE,
+            username,
+            productId
+        });
         // Handle the response from the external API
         // Uncomment the following line if you want to log the success response
-        // console.log('Success:', response.data);
+         console.log('Success:', response.data);
 
         // Send the data received from the external API in the response to the client
         res.status(200).json(response.data);

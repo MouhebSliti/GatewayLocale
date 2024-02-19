@@ -1,3 +1,6 @@
+//Retrieving catalog  "MP1"
+
+
 const { readFile } = require('fs');
 
 // Function to read JSON data from file
