@@ -40,7 +40,7 @@ router.post('/buy', async (req, res) => {
          console.log('Success:', response.data);
 
         // Send the data received from the external API in the response to the client
-        res.status(200).json(response);
+        res.status(200).json(response.data);
     } catch (error) {
         console.error('Error processing buy request:', error);
         res.status(500).json({ error: 'Server Error' });
