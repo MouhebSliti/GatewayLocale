@@ -47,4 +47,55 @@ router.post('/buy', async (req, res) => {
     }
 });
 
+
+// POST request to handle the confirmConf action
+router.post('/confirmConf', async (req, res) => {
+    try {
+        // Extract necessary data from the request body
+        const { ID_ORANGE, username } = req.body;
+
+        // Construct the JSON payload
+        const payload = {
+            channel: [
+                {
+                    id: "004",
+                    name: "METAVERSE"
+                }
+            ],
+            relatedParty: [
+                {
+                    id: ID_ORANGE,
+                    name: username,
+                    role: "customer",
+                    "@referredType": "individual"
+                }
+            ],
+            characteristic: [
+                {
+                    name: "ConfirmConfigurationIsProcessed",
+                    valueType: "Object",
+                    value: {
+                        "configuration.id": "ACK",
+                        "configuration.state": "confValidated"
+                    },
+                    "@type": "ObjectCharacteristic"
+                }
+            ]
+        };
+
+        // Make POST request to another backend endpoint
+        const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/confirmConf', payload);
+        // Log the success response
+        console.log('Success:', response.data);
+
+        // Send the data received from the external API in the response to the client
+        res.status(200).json(response.data);
+    } catch (error) {
+        // Log and handle errors
+        console.error('Error processing confirmConf request:', error);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
 module.exports = router;
+
