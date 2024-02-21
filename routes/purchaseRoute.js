@@ -144,6 +144,69 @@ router.post('/validateOrder', async (req, res) => {
 });
 
 
+router.post('/payOrder', async (req, res) => {
+    try {
+        // Extract necessary data from the request body
+        const { ID_ORANGE, username } = req.body;
+
+        // Construct the JSON payload
+        const payload = {
+            "relatedParty": [
+              {
+                "id": ID_ORANGE,
+                "name": username,
+                "role": "customer",
+                "@referredType": "individual"
+              }
+            ],
+            "characteristic": [
+              {
+                "name": "ProvidePaymentRef",
+                "id": "{{provide_payment_ref_id1}}",
+                "valueType": "Object",
+                "value": {
+                  "paymentRefId": [
+                    {
+                      "id": "paid_100"
+                    }
+                  ]
+                },
+                "@type": "ObjectCharacteristic"
+              },
+              {
+                "name": "OrderItemToBePaid",
+                "value": "{{order_item_id1}}",
+                "characteristicRelationship": [
+                  {
+                    "id": "{{provide_payment_ref_id1}}",
+                    "relationshipType": "relatedTo"
+                  }
+                ],
+                "valueType": "Object",
+                "@type": "ObjectCharacteristic"
+              }
+            ],
+            "@type": "TaskFlow"
+          };
+
+        // Make POST request to another backend endpoint for payment
+        const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/payOrder', payload);
+        // Log the success response
+        console.log('Success:', response.data);
+
+        // Send the data received from the external API in the response to the client
+        res.status(200).json(response.data);
+    } catch (error) {
+        // Log and handle errors
+        console.error('Error processing payOrder request:', error);
+        res.status(500).json({ error: 'Server Error' });
+    }
+});
+
+module.exports = router;
+
+
+
 
 module.exports = router;
 
