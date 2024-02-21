@@ -198,7 +198,7 @@ router.post('/payOrder', async (req, res) => {
         res.status(200).json(response.data);
     } catch (error) {
         // Log and handle errors
-        console.error('Error processing payOrder request:', error);
+        console.error('Error processing the payOrder request:', error);
         res.status(500).json({ error: 'Server Error' });
     }
 });
