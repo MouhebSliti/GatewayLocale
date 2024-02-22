@@ -147,7 +147,7 @@ router.post('/validateOrder', async (req, res) => {
 router.post('/payOrder', async (req, res) => {
     try {
         // Extract necessary data from the request body
-        const { ID_ORANGE, username } = req.body;
+        const { ID_ORANGE, username, paymentRefId } = req.body;
 
         // Construct the JSON payload
         const payload = {
@@ -162,7 +162,7 @@ router.post('/payOrder', async (req, res) => {
             "characteristic": [
               {
                 "name": "ProvidePaymentRef",
-                "id": "{{provide_payment_ref_id1}}",
+                "id":paymentRefId,
                 "valueType": "Object",
                 "value": {
                   "paymentRefId": [
@@ -178,7 +178,7 @@ router.post('/payOrder', async (req, res) => {
                 "value": "{{order_item_id1}}",
                 "characteristicRelationship": [
                   {
-                    "id": "{{provide_payment_ref_id1}}",
+                    "id": paymentRefId,
                     "relationshipType": "relatedTo"
                   }
                 ],
