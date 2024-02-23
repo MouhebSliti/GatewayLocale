@@ -215,10 +215,10 @@ router.post('/notification', async (req, res) => {
       console.log('Success:', response.data);
 
       // Check if the state is "completed"
-      if (response.data.state === 'completed') {
+    
           // Send a positive response indicating the buying is done
           res.status(200).json({ message: 'Buying process completed successfully' });
-         } 
+         
   } catch (error) {
       // Log and handle errors
       console.error('Error processing the notification request:', error);
