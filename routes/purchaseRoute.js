@@ -208,7 +208,7 @@ router.post('/payOrder', async (req, res) => {
 router.post('/notification', async (req, res) => {
   try {
       // Extract necessary data from the request body
-      const { ID_ORANGE, username, orderId } = req.body;
+      const { ID_ORANGE, username, orderId , productId} = req.body;
 
       // Construct the JSON payload
       const payload = {
