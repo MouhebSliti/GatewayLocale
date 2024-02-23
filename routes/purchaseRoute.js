@@ -243,8 +243,7 @@ router.post('/notification', async (req, res) => {
       console.log('Success:', response.data);
 
       if (response.data.state == "incompleted")    
-          // Send a positive response indicating the buying is done
-          res.status(200).json(response.data); 
+          res.status(200).json({message : "No order notifications for now"}); 
   
   } catch (error) {
       // Log and handle errors
