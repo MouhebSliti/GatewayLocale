@@ -47,7 +47,6 @@ router.post('/buy', async (req, res) => {
     }
 });
 
-
 //request to handle the confirmConf action
 router.post('/confirmConf', async (req, res) => {
     
@@ -205,55 +204,7 @@ router.post('/payOrder', async (req, res) => {
     }
 });
 
-router.post('/NotifComplete', async (req, res) => {
-  try {
-      // Extract necessary data from the request body
-      const { ID_ORANGE, username} = req.body;
 
-      // Make POST request to another backend endpoint for notification using Axios
-      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/NotifyOrder', {
-        ID_ORANGE,
-        username
-    });
-    
-      console.log('Success:', response.data);
-
-      if (response.data.state == "completed")    
-          // Send a positive response indicating the buying is done
-          res.status(200).json(response.data); 
-  
-  } catch (error) {
-      // Log and handle errors
-      console.error('Error processing the notification request:', error);
-      res.status(500).json({ error: 'Server Error' });
-  }
-});
-
-router.post('/NotifIncomplete', async (req, res) => {
-  try {
-      // Extract necessary data from the request body
-      const { ID_ORANGE, username} = req.body;
-
-      // Make POST request to another backend endpoint for notification using Axios
-      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/IncompleteNotif', {
-        ID_ORANGE,
-        username
-    });
-    
-      //console.log('Success:', response.data);
-
-      if (response.data.state == "incompleted")    
-          res.status(200).json(response.data); 
-        else {
-          res.status(404).json("No Notification");
-        }
-  
-  } catch (error) {
-      // Log and handle errors
-      console.error('Error processing the notification request:', error);
-      res.status(500).json({ error: 'Server Error' });
-  }
-});
 
 let isNotificationCompleted = false;
 router.post('/notification', async (req, res) => {
@@ -339,11 +290,6 @@ router.post('/completeNotification', async (req, res) => {
       res.status(500).json({ error: 'Server Error' });
   }
 });
-
-
-
-
-
 
 module.exports = router;
 
