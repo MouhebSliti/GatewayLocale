@@ -319,7 +319,9 @@ router.post('/notification', async (req, res) => {
           "@type": "ProductOrder"
       };
 
+      isNotificationCompleted = false;
       res.status(200).json(mockedNotifResponse);
+
   } catch (error) {
       console.error('Error processing the notification request:', error);
       res.status(500).json({ error: 'Server Error' });
