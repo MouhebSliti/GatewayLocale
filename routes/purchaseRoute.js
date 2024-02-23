@@ -240,11 +240,13 @@ router.post('/NotifIncomplete', async (req, res) => {
         username
     });
     
-      console.log('Success:', response.data);
+      //console.log('Success:', response.data);
 
       if (response.data.state == "incompleted")    
-          res.status(200).json({message : "No order notifications for now"}); 
-          console.log('Success:', response.data);
+          res.status(200).json(response.data); 
+        else {
+          res.status(404).json("No Notification");
+        }
   
   } catch (error) {
       // Log and handle errors
@@ -252,6 +254,91 @@ router.post('/NotifIncomplete', async (req, res) => {
       res.status(500).json({ error: 'Server Error' });
   }
 });
+
+let isNotificationCompleted = false;
+router.post('/notification', async (req, res) => {
+  try {
+      if (!isNotificationCompleted) {
+          // If notification is not completed, return nothing
+          return res.status(200).json({ message: "No order notifications for now" });
+      }
+
+      // If notification is completed, return the completed notification response
+      const mockedNotifResponse = {
+          id: "5c1b0a6c-5ae4-4c1b-ac40-a3209aa63eee",
+          href: `https://poi-integration.apps.fr01.paas.tech.orange/5c1b0a6c-5ae4-4c1b-ac40-a3209aa63eee}`,
+          orderDate: new Date().toISOString(),
+          productOrderItem: [
+              {
+                  id: "dc105e36-e288-47f5-894d-0b422f85e54f",
+                  quantity: 1,
+                  action: "add",
+                  productOffering: {
+                      id: "5c1b0a6c-5ae4-4c1b-ac40-a3209aa63eee",
+                      name: "Mobile Package 1",
+                      "@type": "Contract"
+                  },
+                  bundledProductOffering: [
+                      {
+                          id: "a2s2qsd4qs4d-d1sq1d1qs5d-zezeae",
+                          name: "Mobile Line"
+                      },
+                      {
+                          id: "a2s2qsd4qs4zzd-d1sq1d1qs5d-zezeae",
+                          name: "Connectivity"
+                      },
+                      {
+                          id: "a2s2qsd4es4d-d1sq1d1qs5d-zezeae",
+                          name: "Time Bundle"
+                      },
+                      {
+                          id: "a2s2qsd4qs4d-d1sq1da1qs5d-zezeae",
+                          name: "Sim Card"
+                      },
+                  ],
+                  productOrderItemRelationship: [
+                      {
+                          id: "46df67c7-6a0d-450c-a327-4b6563742ce7",
+                          relationshipType: "bundles"
+                      }
+                  ],
+                  state: "completed",
+                  "@type": "ProductOrderItem",
+                  isInstallable: true
+              }
+          ],
+          relatedParty: [
+              {
+                  id: req.body.ID_ORANGE,
+                  name: req.body.username,
+                  role: "customer",
+                  "@referredType": "individual"
+              }
+          ],
+          state: "completed",
+          "@type": "ProductOrder"
+      };
+
+      res.status(200).json(mockedNotifResponse);
+  } catch (error) {
+      console.error('Error processing the notification request:', error);
+      res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+
+router.post('/completeNotification', async (req, res) => {
+  try {
+      isNotificationCompleted = true;
+      res.status(200).json({ message: "Notification completed" });
+    
+  } catch (error) {
+      console.error('Error completing the notification:', error);
+      res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+
 
 
 
