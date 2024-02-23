@@ -236,6 +236,8 @@ router.post('/notification', async (req, res) => {
 
       // Make POST request to another backend endpoint for notification using Axios
       const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/NotifyOrder', payload);
+      console.log('Success:', response.data);
+
 
       // Check if the state is "completed"
       if (response.data.state === 'completed') {
