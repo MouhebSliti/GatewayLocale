@@ -210,34 +210,9 @@ router.post('/notification', async (req, res) => {
       // Extract necessary data from the request body
       const { ID_ORANGE, username, orderId , productId} = req.body;
 
-      // Construct the JSON payload
-      const payload = {
-          "relatedParty": [
-              {
-                  "id": ID_ORANGE,
-                  "name": username,
-                  "role": "customer",
-                  "@referredType": "individual"
-              }
-          ],
-          "characteristic": [
-              {
-                  "name": "OrderToBeNotified",
-                  "id": productId,
-                  "valueType": "Object",
-                  "value": {
-                      "orderId": orderId
-                  },
-                  "@type": "ObjectCharacteristic"
-              }
-          ],
-          "@type": "NotificationTask"
-      };
-
       // Make POST request to another backend endpoint for notification using Axios
-      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/NotifyOrder', payload);
+      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/NotifyOrder');
       console.log('Success:', response.data);
-
 
       // Check if the state is "completed"
       if (response.data.state === 'completed') {
