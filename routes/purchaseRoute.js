@@ -205,7 +205,7 @@ router.post('/payOrder', async (req, res) => {
     }
 });
 
-router.post('/notification', async (req, res) => {
+router.post('/NotifyOrder', async (req, res) => {
   try {
       // Extract necessary data from the request body
       const { ID_ORANGE, username} = req.body;
@@ -228,6 +228,32 @@ router.post('/notification', async (req, res) => {
       res.status(500).json({ error: 'Server Error' });
   }
 });
+
+router.post('/notification', async (req, res) => {
+  try {
+      // Extract necessary data from the request body
+      const { ID_ORANGE, username} = req.body;
+
+      // Make POST request to another backend endpoint for notification using Axios
+      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/NotifyOrder', {
+        ID_ORANGE,
+        username
+    });
+    
+      console.log('Success:', response.data);
+
+      if (response.data.state == "incompleted")    
+          // Send a positive response indicating the buying is done
+          res.status(200).json(response.data); 
+  
+  } catch (error) {
+      // Log and handle errors
+      console.error('Error processing the notification request:', error);
+      res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+
 
 
 module.exports = router;

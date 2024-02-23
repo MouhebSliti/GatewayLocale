@@ -1,5 +1,5 @@
 {
-  "id": "6c4820dc-89ae-4c7a-adb0-23e9384407b4",
+  "id": "5c1b0a6c-5ae4-4c1b-ac40-a3209aa63eee",
   "description": "Mobile Package 1",
   "isInstallable": true,
   "lastUpdate": "2023-08-24T07:39:03.717Z",
@@ -80,9 +80,9 @@
   "category": [],
   "channel": [
     {
-      "id": "Web",
+      "id": "METAVERSE",
       "href": null,
-      "name": "Web",
+      "name": "METAVERSE",
       "@baseType": null,
       "@schemaLocation": null,
       "@type": null,
