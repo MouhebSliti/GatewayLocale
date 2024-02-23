@@ -223,7 +223,7 @@ router.post('/notification', async (req, res) => {
           "characteristic": [
               {
                   "name": "OrderToBeNotified",
-                  "id": orderId,
+                  "id": productId,
                   "valueType": "Object",
                   "value": {
                       "orderId": orderId
