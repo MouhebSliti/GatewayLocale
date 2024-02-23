@@ -229,13 +229,13 @@ router.post('/NotifyOrder', async (req, res) => {
   }
 });
 
-router.post('/notification', async (req, res) => {
+router.get('/notification', async (req, res) => {
   try {
       // Extract necessary data from the request body
       const { ID_ORANGE, username} = req.body;
 
       // Make POST request to another backend endpoint for notification using Axios
-      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/NotifyOrder', {
+      const response = await axios.get('https://clever-blue-bear.cyclic.app/mock/NotifyOrder', {
         ID_ORANGE,
         username
     });
