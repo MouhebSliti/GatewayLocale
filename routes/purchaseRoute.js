@@ -205,7 +205,7 @@ router.post('/payOrder', async (req, res) => {
     }
 });
 
-router.post('/NotifyOrder', async (req, res) => {
+router.post('/NotifComplete', async (req, res) => {
   try {
       // Extract necessary data from the request body
       const { ID_ORANGE, username} = req.body;
@@ -229,13 +229,13 @@ router.post('/NotifyOrder', async (req, res) => {
   }
 });
 
-router.post('/notification', async (req, res) => {
+router.post('/NotifIncomplete', async (req, res) => {
   try {
       // Extract necessary data from the request body
       const { ID_ORANGE, username} = req.body;
 
       // Make POST request to another backend endpoint for notification using Axios
-      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/NotifyOrder', {
+      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/IncompleteNotif', {
         ID_ORANGE,
         username
     });
