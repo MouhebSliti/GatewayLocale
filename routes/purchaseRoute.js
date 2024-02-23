@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios'); // Import axios for making HTTP requests
 
-// POST request to handle buy action
+//request to handle buy action
 router.post('/buy', async (req, res) => {
     try {
         // Extract necessary data from the request body
@@ -48,7 +48,7 @@ router.post('/buy', async (req, res) => {
 });
 
 
-// POST request to handle the confirmConf action
+//request to handle the confirmConf action
 router.post('/confirmConf', async (req, res) => {
     
     try {
@@ -98,6 +98,7 @@ router.post('/confirmConf', async (req, res) => {
     }
 });
 
+// request to handle the validation action
 router.post('/validateOrder', async (req, res) => {
     
     try {
@@ -143,6 +144,7 @@ router.post('/validateOrder', async (req, res) => {
     }
 });
 
+//request to handle the payment action
 
 router.post('/payOrder', async (req, res) => {
     try {
@@ -203,10 +205,55 @@ router.post('/payOrder', async (req, res) => {
     }
 });
 
+router.post('/notification', async (req, res) => {
+  try {
+      // Extract necessary data from the request body
+      const { ID_ORANGE, username, orderId } = req.body;
+
+      // Construct the JSON payload
+      const payload = {
+          "relatedParty": [
+              {
+                  "id": ID_ORANGE,
+                  "name": username,
+                  "role": "customer",
+                  "@referredType": "individual"
+              }
+          ],
+          "characteristic": [
+              {
+                  "name": "OrderToBeNotified",
+                  "id": orderId,
+                  "valueType": "Object",
+                  "value": {
+                      "orderId": orderId
+                  },
+                  "@type": "ObjectCharacteristic"
+              }
+          ],
+          "@type": "NotificationTask"
+      };
+
+      // Make POST request to another backend endpoint for notification using Axios
+      const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/validateorder/$(orderId)', payload);
+
+      // Check if the state is "completed"
+      if (response.data.state === 'completed') {
+          // Send a positive response indicating the buying is done
+          res.status(200).json({ message: 'Buying process completed successfully' });
+         } 
+  } catch (error) {
+      // Log and handle errors
+      console.error('Error processing the notification request:', error);
+      res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+
 module.exports = router;
 
 
-
-
 module.exports = router;
+
+
 
