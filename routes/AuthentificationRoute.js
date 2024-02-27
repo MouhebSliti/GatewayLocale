@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { signin, signup } = require('../controllers/userController'); // Import both signin and signup functions
+const { signin, signup, updateCoins } = require('../controllers/userController'); // Import both signin and signup functions
 const Account = require("../models/Account"); // Import the Account model
 
 // Signin route
@@ -10,6 +10,7 @@ router.post('/signin', signin);
 
 // Signup route
 router.post('/signup', signup); 
+router.patch('/updateCoins', updateCoins);
 
 // Route to fetch users
 router.get('/users', async (req, res) => {
@@ -26,7 +27,8 @@ router.get('/users', async (req, res) => {
                         ID_META: user.ID_META,
                         email: user.email,
                         username: user.username,
-                        token: user.token
+                        token: user.token,
+                        coins: user.coins
                     }
                 };
             })

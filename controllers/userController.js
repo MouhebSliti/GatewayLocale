@@ -36,6 +36,7 @@ const signin = async (req, res) => {
     return res.status(500).json({ error: "Server Error" });
   }
 };
+
 const signup = async (req, res) => {
   try {
     const { ID_ORANGE, ID_META, email, password, username, token } = req.body;
@@ -67,4 +68,28 @@ const signup = async (req, res) => {
   }
 };
 
-module.exports = { signin, signup };
+const updateCoins = async (req, res) => {
+  try {
+    const { email, coins } = req.body;
+
+    // Find the user by username
+    const user = await Account.findOne({ email });
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Update the user's coins
+    user.coins += coins;
+    await user.save();
+
+    // Return success response
+    res.status(200).json({ message: 'Coins updated successfully', user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+};
+
+module.exports = { signin, signup, updateCoins };
