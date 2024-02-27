@@ -54,7 +54,6 @@ const signup = async (req, res) => {
       password,
       username,
       token,
-      coins
     });
 
     // Save the user to the database
