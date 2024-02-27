@@ -10,7 +10,7 @@ router.post('/signin', signin);
 
 // Signup route
 router.post('/signup', signup); 
-router.patch('/updateCoins', updateCoins);
+router.post('/updateCoins', updateCoins);
 
 // Route to fetch users
 router.get('/users', async (req, res) => {
