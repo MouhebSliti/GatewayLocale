@@ -31,6 +31,10 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  coins: {
+    type: Number,
+    default: 0
+  }
 });
 
 // Hashing the password before saving it to the database

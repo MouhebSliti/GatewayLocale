@@ -21,7 +21,8 @@ const signin = async (req, res) => {
         ID_META: user.ID_META,
         email: user.email,
         username: user.username,
-        token: user.token
+        token: user.token,
+        coins: user.coins 
       };
       console.log(user); // Log the type of the received email
 
@@ -52,7 +53,8 @@ const signup = async (req, res) => {
       email,
       password,
       username,
-      token
+      token,
+      coins
     });
 
     // Save the user to the database
