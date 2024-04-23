@@ -272,6 +272,9 @@ router.post('/notification', async (req, res) => {
             // Construct your mocked notification response here
         };
 
+        // Reset the notification status after sending the notification response
+        notificationStatus[username] = { isCompleted: false };
+
         res.status(200).json(mockedNotifResponse);
     } catch (error) {
         console.error('Error processing the notification request:', error);
@@ -291,7 +294,6 @@ router.post('/completeNotification', async (req, res) => {
         res.status(500).json({ error: 'Server Error' });
     }
 });
-
 
 
 
