@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { signin, signup, updateCoins } = require('../controllers/userController'); // Import both signin and signup functions
+const { signin, signup, updateCoins,KPIRoom1,KPIRoom2 } = require('../controllers/userController'); // Import both signin and signup functions
 const Account = require("../models/Account"); // Import the Account model
 
 // Signin route
@@ -28,7 +28,9 @@ router.get('/users', async (req, res) => {
                         email: user.email,
                         username: user.username,
                         token: user.token,
-                        coins: user.coins
+                        coins: user.coins,
+                        Room_1_KPI: user.Room_1_KPI,
+                        Room_2_KPI: user.Room_2_KPI,
                     }
                 };
             })
@@ -40,5 +42,11 @@ router.get('/users', async (req, res) => {
         res.status(500).json({ error: "Server Error" });
     }
 });
+// Route to increment Room_1_KPI
+router.post('/KPIRoom1', KPIRoom1);
+
+// Route to increment Room_2_KPI
+router.post('/KPIRoom2', KPIRoom2);
+
 
 module.exports = router;
