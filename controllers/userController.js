@@ -92,4 +92,53 @@ const updateCoins = async (req, res) => {
   }
 };
 
-module.exports = { signin, signup, updateCoins };
+
+const KPIRoom1 = async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    // Find the user by username
+    const user = await Account.findOne({ username });
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Increment Room_1_KPI
+    user.Room_1_KPI++;
+    await user.save();
+
+    // Return success response
+    res.status(200).json({ message: 'Room_1_KPI incremented successfully', user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+};
+
+const KPIRoom2 = async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    // Find the user by username
+    const user = await Account.findOne({ username });
+
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Increment Room_2_KPI
+    user.Room_2_KPI++;
+    await user.save();
+
+    // Return success response
+    res.status(200).json({ message: 'Room_2_KPI incremented successfully', user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+};
+
+module.exports = { signin, signup, updateCoins,KPIRoom1,KPIRoom2 };

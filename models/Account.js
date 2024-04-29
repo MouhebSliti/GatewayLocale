@@ -34,6 +34,14 @@ const AccountSchema = new mongoose.Schema({
   coins: {
     type: Number,
     default: 0
+  },
+  Room_1_KPI: {
+    type: Number,
+    default: 0
+  },
+  Room_2_KPI: {
+    type: Number,
+    default: 0
   }
 });
 
