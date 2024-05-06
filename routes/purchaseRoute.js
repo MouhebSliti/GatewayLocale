@@ -34,7 +34,7 @@ router.post('/buy', async (req, res) => {
         };
 
         // Make POST request to external API
-        const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/processFlow', payload );
+        const response = await axios.post('https://scary-red-duckling.cyclic.app/mock/processFlow', payload );
         // Handle the response from the external API
         // Uncomment the following line if you want to log the success response
          console.log('Success:', response.data);
@@ -84,7 +84,7 @@ router.post('/confirmConf', async (req, res) => {
         };
 
         // Make POST request to another backend endpoint
-        const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/confirmConf', payload);
+        const response = await axios.post('https://scary-red-duckling.cyclic.app/mock/confirmConf', payload);
         // Log the success response
         console.log('Success:', response.data);
 
@@ -130,7 +130,7 @@ router.post('/validateOrder', async (req, res) => {
           };
 
         // Make POST request to another backend endpoint
-        const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/validateorder', payload);
+        const response = await axios.post('https://scary-red-duckling.cyclic.app/mock/validateorder', payload);
         // Log the success response
         console.log('Success:', response.data);
 
@@ -191,7 +191,7 @@ router.post('/payOrder', async (req, res) => {
           };
 
         // Make POST request to another backend endpoint for payment
-        const response = await axios.post('https://clever-blue-bear.cyclic.app/mock/payOrder', payload);
+        const response = await axios.post('https://scary-red-duckling.cyclic.app/mock/payOrder', payload);
         // Log the success response
         console.log('Success:', response.data);
 
